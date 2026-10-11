@@ -176,6 +176,17 @@ section[role=tabpanel]{animation:fade .25s ease}
 .obj td:first-child{font-weight:600;color:var(--navy-900);font-family:var(--font-display)}
 .obj tr:nth-child(even) td{background:var(--surface-2)}
 
+/* ---------- GPUaaS ---------- */
+.gpu-int{background:#fff4e0;border:1px solid #f0d49b;color:#6b4700;border-radius:9px;padding:10px 12px;font-size:13px;margin:14px 0 10px}
+.gq{padding:16px 18px;margin-top:12px}
+.gq .qt{font-family:var(--font-display);font-weight:700;color:var(--navy-900);font-size:14.5px}
+.gq .opts{display:grid;gap:6px;margin-top:10px}
+.gq .opts button{appearance:none;text-align:left;font:inherit;font-size:13.5px;padding:9px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);cursor:pointer;color:var(--ink)}
+.gq .opts button:hover:not(:disabled){border-color:var(--accent)}
+.gq .opts button.ok{background:#e8f5ec;border-color:#7cc49a;color:#1d5a35;font-weight:600}
+.gq .opts button.no{background:#fbeceb;border-color:#e3a39b;color:#8c2f22}
+.gq .why{font-size:13px;color:var(--ink-2);margin-top:8px}
+
 /* ---------- Telarus ---------- */
 .tl-steps{display:grid;gap:10px;margin:16px 0 4px}
 @media(min-width:760px){.tl-steps{grid-template-columns:repeat(4,1fr)}}
@@ -399,6 +410,7 @@ const PROGRAM = [
    {id:'w1-4', t:'Build and vet your first list of ICP-fit target accounts in the CRM'},
    {id:'w1-5', t:'Learn the quoting process and how supplier BOMs are rebranded into SSP quotes'},
    {id:'w1-6', t:'Draft your first outreach messages and have Amanda review them', tab:'scripts'},
+   {id:'w1-7', t:'Complete the GPUaaS course and score 6 of 6 on the self-check', tab:'gpuaas'},
  ]},
  { id:'w2', name:'Week 2', badge:'WEEK 2', sub:'Outbound begins', kind:'week', items:[
    {id:'w2-1', t:'Send your first batch of personalized outreach (confirm the daily target with Amanda)'},
@@ -406,6 +418,7 @@ const PROGRAM = [
    {id:'w2-3', t:'Book your first discovery call'},
    {id:'w2-4', t:'Log every prospect, touch, and next step in the CRM'},
    {id:'w2-5', t:'Study the objection playbook and practice the top five responses', tab:'scripts'},
+   {id:'w2-6', t:'Run the GPUaaS drill in Coach and talk through a full GPU deal structure with Amanda', tab:'coach'},
  ]},
  { id:'w3', name:'Week 3', badge:'WEEK 3', sub:'Running discovery', kind:'week', items:[
    {id:'w3-1', t:'Run discovery calls on your own using the question bank'},
@@ -554,6 +567,11 @@ const DRILLS=[
  {id:'qualifying', name:'Qualifying', qs:[
    {q:'You have a champion and clear pain but do not know who signs. What is missing, and what do you ask next?', focus:'Missing the economic buyer and the decision or paper process. Ask who controls the budget and what steps stand between now and a yes.'},
  ]},
+ {id:'gpuaas', name:'GPUaaS', qs:[
+   {q:'A seed-funded AI startup says "we need 512 B300s, fast". What are the first five things you ask?', focus:'Workload (training vs inference), contiguous cluster or not, RFS date, term and budget per GPU-hour, deposit or funding ability. Also fabric and storage needs and who signs.'},
+   {q:'A provider offers B300 at $3.65 per GPU-hour with "site secured, hardware coming". How do you handle it before introducing a buyer?', focus:'Treat it as paper capacity until proven: ask for GPU orders or allocation, data centre lease and power, a firm RFS date with credits, acceptance testing before billing, and register the deal first.'},
+   {q:'Walk me through the TCV and our commission on 256 GPUs at $4.00 per GPU-hour for 3 years, and why vetting protects that commission.', focus:'256 × $4 × 8,760 × 3 is about $26.9M TCV; at 2 to 3% that is about $540k to $810k, mostly paid monthly over the term. If the provider fails or the buyer churns, payments stop, so vetting both sides protects the buyer and our revenue.'},
+ ]},
  {id:'closing', name:'Quote & close', qs:[
    {q:'Why do we present a quote live instead of emailing it? Give the one-line reason.', focus:'Presenting lets you handle questions, reinforce value, and ask for the decision. Emailing lets the deal stall.'},
    {q:'What must be true before any number goes on an SSP quote?', focus:'Every spec, quantity, and price is real and verified. Accuracy is the product. No guessed numbers.'},
@@ -614,7 +632,197 @@ const TELARUS = [
  ]},
 ];
 
+const GPU_MODULES = [
+ {n:'1', t:'What GPUaaS is, and what we actually sell', body:`
+   <p>GPU-as-a-Service means a buyer rents GPU compute instead of owning the hardware. They pay for capacity over time, the provider owns the GPUs, the data centre and the risk of running them. We sit on the buyer's side, find the right capacity, vet the provider and win the terms.</p>
+   <h4>The four ways buyers rent GPUs</h4>
+   <ul>
+     <li><b>On-demand:</b> pay by the GPU-hour, no commitment. Fast to start, the most expensive per hour, and capacity can vanish. Good for testing, rarely where our deals are.</li>
+     <li><b>Reserved cloud:</b> a fixed block of GPUs for a fixed term (1 to 5 years) on the provider's platform. Lower rate in exchange for commitment.</li>
+     <li><b>Bare metal:</b> dedicated physical servers with no virtualisation. The buyer runs their own stack. This is the heart of most large AI training deals.</li>
+     <li><b>Managed cluster:</b> bare metal plus the provider runs the orchestration (Kubernetes or Slurm), monitoring and support. Higher rate, less work for the buyer.</li>
+   </ul>
+   <h4>The units you must speak fluently</h4>
+   <ul>
+     <li><b>GPU-hour:</b> the price unit. One GPU for one hour. A year is 8,760 hours.</li>
+     <li><b>Node:</b> one server, usually 8 GPUs. "32 nodes" means 256 GPUs.</li>
+     <li><b>Cluster:</b> many nodes joined by a high-speed fabric (InfiniBand or RoCE) so they train as one machine.</li>
+     <li><b>Generation:</b> H100 and H200 (Hopper), B200 and B300 (Blackwell), GB200 and GB300 NVL72 (Grace Blackwell racks), then Vera Rubin. Newer is faster, scarcer and priced higher.</li>
+   </ul>
+   <h4>Why buyers rent instead of buy</h4>
+   <ul>
+     <li>Speed: capacity in weeks, not the months it takes to buy, build and power a cluster.</li>
+     <li>Cash: opex instead of millions in capex up front.</li>
+     <li>No data centre: they do not need space, power, liquid cooling or a hardware team.</li>
+     <li>Refresh risk: GPUs age fast. Renting moves that risk to the provider.</li>
+   </ul>`},
+ {n:'2', t:'Who buys: AI startups, labs and neoclouds', body:`
+   <p>Two buyer types drive our GPUaaS pipeline. They want different things, so sell to them differently.</p>
+   <h4>AI startups and labs</h4>
+   <ul>
+     <li><b>What they need:</b> a training cluster for a model run, then capacity for fine-tuning and inference.</li>
+     <li><b>What they care about:</b> getting GPUs fast, a cluster that actually performs, and making their funding last.</li>
+     <li><b>Buying signals:</b> a new funding round, a model launch announced, hiring ML infrastructure engineers, complaints about cloud waitlists.</li>
+     <li><b>Watch for:</b> thin credit history. Providers will ask for bigger deposits or prepay. Raise it early so it does not kill the deal at contract.</li>
+   </ul>
+   <h4>Neoclouds and resellers</h4>
+   <ul>
+     <li><b>What they need:</b> wholesale capacity to resell to their own customers, or a buyer (off-taker) for clusters they are building.</li>
+     <li><b>What they care about:</b> margin between their buy and sell rate, delivery dates they can promise downstream, and terms that match their customer contracts.</li>
+     <li><b>Buying signals:</b> new data centre sites announced, customer wins they cannot serve, idle capacity they want to fill.</li>
+     <li><b>Watch for:</b> back-to-back risk. If their customer contract is 3 years and they sign a 5-year term upstream, they carry 2 years of exposure. Make sure terms, SLAs and delivery dates line up.</li>
+   </ul>`},
+ {n:'3', t:'Discovery: the questions that qualify a GPU deal', body:`
+   <p>A GPU deal lives or dies on specifics. "We need GPUs" is not a requirement. Do not source anything until you can answer these.</p>
+   <h4>Workload</h4>
+   <ul>
+     <li>Is this training, fine-tuning or inference? How big is the model?</li>
+     <li>Does it need a single contiguous cluster, or can it run across sites? Training usually cannot split.</li>
+   </ul>
+   <h4>The hardware spec</h4>
+   <ul>
+     <li>Which GPU generation, and is there flexibility? (H200 vs B300 vs GB300 changes price and availability.)</li>
+     <li>How many GPUs or nodes now, and how many in 6 to 12 months?</li>
+     <li>Fabric: InfiniBand or RoCE, and what speed (400G or 800G)?</li>
+     <li>Storage: how much high-performance storage, and does it need to sit next to the cluster?</li>
+   </ul>
+   <h4>Commercials</h4>
+   <ul>
+     <li>When must it be live (ready for service date)? What happens to them if it slips?</li>
+     <li>Preferred term: 1, 3 or 5 years? Would a longer term for a lower rate work?</li>
+     <li>Budget per GPU-hour or per month, and how much can they put down as a deposit?</li>
+     <li>Bare metal or managed? Who runs the stack day to day?</li>
+   </ul>
+   <h4>Location and compliance</h4>
+   <ul>
+     <li>Which country or region must the GPUs run in? Any data residency rules?</li>
+     <li>Who is the end user, and where are they? (See red flags on export controls.)</li>
+   </ul>
+   <h4>The deal</h4>
+   <ul>
+     <li>Who signs, who approves the spend, and how is it funded?</li>
+     <li>Who else are they talking to, and what have they been quoted?</li>
+   </ul>`},
+ {n:'4', t:'Structuring the deal, and how we get paid', body:`
+   <p>The headline rate is only one line in the deal. A great structure protects the buyer, makes the provider confident, and keeps our commission paying for years.</p>
+   <h4>The parts of a GPUaaS contract</h4>
+   <ul>
+     <li><b>Rate:</b> price per GPU-hour, usually fixed for the term. Ask for step-downs if a newer generation lands mid-term.</li>
+     <li><b>Term:</b> 1 to 5 years. Longer terms buy lower rates. Do not push a buyer into a term longer than their business plan.</li>
+     <li><b>Deposit:</b> often 20 to 30%. Always confirm: is it 20% of year one, or 20% of the whole contract? That one detail can change the buyer's cash need by millions.</li>
+     <li><b>Ready for service (RFS) date:</b> when the cluster must be live, with credits or exit rights if the provider misses it.</li>
+     <li><b>Acceptance testing:</b> burn-in and performance tests (NCCL, storage and fabric checks) passed before billing starts. Our best partners do 48-hour acceptance testing.</li>
+     <li><b>SLA:</b> uptime commitment (for example 99.5%), how fast failed GPUs are replaced, and the credits if they miss.</li>
+     <li><b>What is included:</b> storage, networking, internet, support and power. Anything not written in is an extra bill later.</li>
+     <li><b>Expansion and exit:</b> right of first refusal on more capacity, and what happens if either side wants out.</li>
+   </ul>
+   <h4>How SSP gets paid</h4>
+   <p>The provider pays us a percentage of the total contract value (TCV) under our partner agreement. The buyer pays nothing for our help. As an example, one current agreement pays 3% of TCV, tapering toward 2% on very large deals, with 1% of TCV advanced within 14 days of signing and the rest paid monthly over the term after the provider is paid.</p>
+   <p><b>Worked example:</b> 256 B300 GPUs at $4.00 per GPU-hour for 3 years.</p>
+   <ul>
+     <li>Monthly: 256 × $4.00 × 730 hours = about $747,500</li>
+     <li>TCV: 256 × $4.00 × 8,760 × 3 = about $26.9M</li>
+     <li>Commission at 2 to 3%: about $540k to $810k over the life of the deal</li>
+   </ul>
+   <p><b>The lesson:</b> most of our money arrives month by month. If the provider fails to deliver or the buyer walks, the payments stop. Vetting both sides is how we protect the buyer and our own revenue.</p>`},
+ {n:'5', t:'Pricing: what drives it and today’s ranges', body:`
+   <h4>What moves the price</h4>
+   <ul>
+     <li><b>GPU generation:</b> the biggest driver. Newer is pricier and scarcer.</li>
+     <li><b>Term and volume:</b> longer terms and bigger blocks earn lower rates.</li>
+     <li><b>Deposit and credit:</b> a bigger deposit or prepay can buy a better rate, especially for startups.</li>
+     <li><b>Delivery date:</b> capacity live now costs more than capacity live next quarter.</li>
+     <li><b>Region:</b> US, Canada and APAC price differently, and some regions are tight.</li>
+     <li><b>What is bundled:</b> fabric, storage, managed services and support all add to the rate.</li>
+     <li><b>Cooling:</b> GB300 NVL72 racks need liquid cooling. Air-cooled B300 sites are easier to find.</li>
+   </ul>
+   <div class="gpu-int"><b>Internal only. Do not share with buyers.</b> Ranges from our current partner capacity, October 2026. Prices move monthly. Always confirm with the provider before you quote.</div>
+   <div class="mtable-wrap"><table class="obj">
+     <thead><tr><th>Offer</th><th>Rate per GPU-hour</th><th>Term</th><th>Deposit</th><th>Lead time</th></tr></thead>
+     <tbody>
+       <tr><td>B300 bare metal</td><td>$3.65 to $4.50</td><td>3 to 5 years</td><td>20 to 30%</td><td>12 to 14 weeks, or a set RFS</td></tr>
+       <tr><td>GB300 bare metal</td><td>about $4.50</td><td>5 years</td><td>25%</td><td>Confirm per site</td></tr>
+       <tr><td>Vera Rubin</td><td>about $8.00</td><td>5 years</td><td>30%</td><td>Next-gen, go-live dates quoted per deal</td></tr>
+       <tr><td>Buy instead: H200 node (8 GPUs, new)</td><td>about $440k per node</td><td>Purchase</td><td>30% down</td><td>2 to 3 weeks</td></tr>
+     </tbody></table></div>
+   <p class="note">Sanity check every quote: rate × GPUs × 8,760 × years = TCV. If the numbers in a proposal do not reconcile, ask why before the buyer does.</p>`},
+ {n:'6', t:'How to sell it: the GPUaaS play', body:`
+   <div class="pipe">
+     <div class="step"><span class="num">1</span><div><b>Discover</b><p>Get the full spec from module 3. No spec, no sourcing.</p></div></div>
+     <div class="step"><span class="num">2</span><div><b>Qualify</b><p>Confirm budget, deposit ability, decision maker and a real RFS date. Check the buyer's funding and credit story.</p></div></div>
+     <div class="step"><span class="num">3</span><div><b>Source</b><p>Bring two or three vetted options from our partners and the Telarus portfolio. Register the deal before any intro.</p></div></div>
+     <div class="step"><span class="num">4</span><div><b>Compare</b><p>Put the options side by side on one sheet: rate, TCV, deposit, RFS, SLA, what is included. Normalise so it is apples to apples.</p></div></div>
+     <div class="step"><span class="num">5</span><div><b>Negotiate</b><p>Trade term for rate, deposit for price, and push for acceptance testing, RFS credits and expansion rights.</p></div></div>
+     <div class="step"><span class="num">6</span><div><b>Close</b><p>Contract signed, deposit paid, RFS and acceptance plan agreed in writing.</p></div></div>
+     <div class="step"><span class="num">7</span><div><b>Deliver and expand</b><p>Track the RFS date weekly, attend acceptance testing, then sell the next block, storage or inference capacity.</p></div></div>
+   </div>
+   <h4>Openers that work</h4>
+   <ul>
+     <li><b>AI startup:</b> "Saw you just raised. Most teams at your stage lose six weeks and overpay chasing GPUs. We sit on your side, bring you vetted B300 and GB300 capacity, and negotiate the terms. It costs you nothing. Worth 15 minutes?"</li>
+     <li><b>Neocloud:</b> "You are winning more demand than you can serve. We can bring you vetted wholesale capacity with terms that match your customer contracts, so you sell without carrying the risk. Open to comparing notes?"</li>
+   </ul>
+   <h4>Negotiation levers to pull for the buyer</h4>
+   <ul>
+     <li>Longer term in exchange for a lower rate or a smaller deposit.</li>
+     <li>Billing starts only after acceptance testing passes.</li>
+     <li>Service credits or exit rights if the RFS date slips.</li>
+     <li>Right of first refusal on the next block at the same rate.</li>
+     <li>A rate step-down or upgrade path when the next generation ships.</li>
+   </ul>`},
+ {n:'7', t:'Red flags: what to look out for', body:`
+   <p>GPU capacity is the most hyped market in tech. Plenty of "available" capacity does not exist yet. Your job is to find the real thing.</p>
+   <h4>Provider red flags</h4>
+   <ul>
+     <li><b>Paper capacity:</b> "site secured, no hardware" or "hardware, no site". Ask for proof of both: GPU purchase orders or allocation, a signed data centre lease and confirmed power.</li>
+     <li><b>Broker chains:</b> the "provider" is a broker selling someone else's capacity, who is selling someone else's. Get to the owner of the GPUs.</li>
+     <li><b>No acceptance testing:</b> a provider that will not commit to burn-in and performance tests before billing.</li>
+     <li><b>Vague RFS:</b> "Q1" with no date and no penalty. Delivery dates slide when nobody is on the hook.</li>
+     <li><b>Cooling mismatch:</b> GB300 NVL72 racks offered in an air-cooled hall. They need liquid cooling.</li>
+     <li><b>Hidden extras:</b> storage, networking, support or power billed separately after signing.</li>
+     <li><b>Deposit with no protection:</b> a large deposit to a provider with no track record and no escrow or refund terms.</li>
+   </ul>
+   <h4>Buyer red flags</h4>
+   <ul>
+     <li><b>No spec, big number:</b> "we need 10,000 GPUs" with no workload, budget or timeline.</li>
+     <li><b>Price shopping:</b> collecting quotes to beat up an incumbent with no intent to switch. Providers notice, and it costs us credibility.</li>
+     <li><b>Credit gap:</b> a start-up with no credit history expecting standard terms. Line up the deposit or prepay story early.</li>
+     <li><b>Splits that will not work:</b> a training run that needs one contiguous cluster cannot be spread across sites.</li>
+   </ul>
+   <h4>Compliance</h4>
+   <ul>
+     <li><b>Know the end user:</b> advanced NVIDIA GPUs are export controlled for some countries and end users. Know who will use the compute and where it physically runs. If anything is unclear, stop and ask Amanda.</li>
+     <li><b>Register first:</b> register the deal with the provider or Telarus before you introduce the buyer. It protects the buyer's pricing and our commission.</li>
+   </ul>`},
+ {n:'8', t:'GPUaaS objections and how to answer them', body:`
+   <div class="mtable-wrap"><table class="obj">
+     <thead><tr><th style="width:38%">They say</th><th>Your response</th></tr></thead>
+     <tbody>
+       <tr><td>"We already get GPUs from a big cloud."</td><td>Great, that is a benchmark. Let us show you what reserved bare metal costs for the same workload. Most teams find a large gap on long training runs, and it costs nothing to compare.</td></tr>
+       <tr><td>"On-demand is more flexible."</td><td>It is, until capacity disappears mid-run. A reserved base with on-demand for spikes usually gives the flexibility at a far lower average rate.</td></tr>
+       <tr><td>"We would rather buy our own GPUs."</td><td>Then you also need space, power, liquid cooling and an ops team, and the hardware ages fast. We can price both paths side by side so you choose with the full numbers.</td></tr>
+       <tr><td>"The deposit is too high."</td><td>Let us use it as a lever. A longer term, a staged ramp or prepaying part of year one can lower the deposit. We negotiate that on your side.</td></tr>
+       <tr><td>"We need it next week."</td><td>Then the real question is what is live today versus in 12 weeks. We will check live inventory first and show the price difference between now and next quarter.</td></tr>
+       <tr><td>"Why would we use you instead of going direct?"</td><td>We are on your side of the table, we vet providers you have never heard of, and we get terms a single buyer usually cannot. The provider pays us, so it costs you nothing.</td></tr>
+     </tbody></table></div>`},
+];
+
+const GPU_QUIZ = [
+ {q:'A buyer wants 32 nodes of B300. How many GPUs is that?', o:['32','128','256','512'], a:2, why:'Most nodes hold 8 GPUs. 32 × 8 = 256.'},
+ {q:'256 GPUs at $4.00 per GPU-hour for 3 years. Roughly what is the TCV?', o:['$2.2M','$8.9M','$26.9M','$89M'], a:2, why:'256 × $4.00 × 8,760 hours × 3 years is about $26.9M.'},
+ {q:'A provider quotes a 25% deposit. What must you confirm first?', o:['The provider’s logo','Whether it is 25% of year one or of the whole contract','The buyer’s favourite cloud','Nothing, 25% is standard'], a:1, why:'25% of TCV versus 25% of year one can change the buyer’s cash need by millions.'},
+ {q:'A provider says "site secured, hardware arriving soon". What do you do?', o:['Introduce the buyer right away','Ask for proof of GPU orders or allocation and a delivery date with penalties','Take the deposit to hold the slot','Ignore it, all providers say that'], a:1, why:'That is paper capacity until proven. Get proof of hardware, site and power, and put the RFS date on the hook.'},
+ {q:'A neocloud signs 5 years upstream to serve a 3-year customer contract. What is the risk?', o:['None','They carry 2 years of capacity with no customer','The GPUs get faster','The provider pays less commission'], a:1, why:'Back-to-back terms must line up, or the neocloud holds the gap.'},
+ {q:'When should billing start on a new cluster?', o:['At contract signature','When the deposit clears','After acceptance testing passes','When the first GPU ships'], a:2, why:'Push for billing to start only after burn-in and performance tests pass.'},
+];
+
 const GLOSSARY = [
+ ['GPU-hour','The price unit for renting compute: one GPU for one hour. A year is 8,760 hours.'],
+ ['TCV (total contract value)','The full value of a contract over its term. For GPUaaS: rate × GPUs × hours × years. Our commission is a % of TCV.'],
+ ['RFS (ready for service)','The date a cluster or circuit is live and usable. Put it in the contract with credits if it slips.'],
+ ['Acceptance testing / burn-in','Tests run on a new cluster (GPU stress, NCCL, storage and fabric checks) before the buyer accepts it and billing starts.'],
+ ['NCCL','NVIDIA’s library for GPU-to-GPU communication. NCCL tests prove a cluster can train as one machine.'],
+ ['NVL72','A Grace Blackwell rack (GB200 or GB300) with 72 GPUs linked as one system. Needs liquid cooling.'],
+ ['Back-to-back contract','When a reseller’s customer contract mirrors its upstream contract on term, SLA and dates, so it carries no gap risk.'],
  ['GPU','Graphics processing unit, the chip that powers AI training and inference. The core of most of our deals.'],
  ['NVIDIA H100 / H200','High-end data centre GPUs from NVIDIA’s Hopper generation, widely used for AI.'],
  ['Blackwell (B200 / B300 / GB200)','NVIDIA’s newer generation of AI GPUs and systems, currently in very high demand.'],
@@ -708,6 +916,7 @@ const TABS=[
  {id:'day1',label:'Day 1'},
  {id:'plan',label:'30-Day Plan'},
  {id:'playbook',label:'Playbook'},
+ {id:'gpuaas',label:'GPUaaS'},
  {id:'scripts',label:'Scripts'},
  {id:'coach',label:'Coach'},
  {id:'ecosystem',label:'Ecosystem'},
@@ -738,7 +947,7 @@ function renderActive(){
   const m=$('#main'); if(!m) return;
   m.innerHTML='';
   const panel=el('section'); panel.setAttribute('role','tabpanel');
-  ({welcome:viewWelcome,vetting:viewVetting,day1:viewDay1,plan:viewPlan,playbook:viewPlaybook,scripts:viewScripts,coach:viewCoach,ecosystem:viewEcosystem,telarus:viewTelarus,glossary:viewGlossary,manager:viewManager}[active]||viewWelcome)(panel);
+  ({welcome:viewWelcome,vetting:viewVetting,day1:viewDay1,plan:viewPlan,playbook:viewPlaybook,gpuaas:viewGpuaas,scripts:viewScripts,coach:viewCoach,ecosystem:viewEcosystem,telarus:viewTelarus,glossary:viewGlossary,manager:viewManager}[active]||viewWelcome)(panel);
   m.appendChild(panel);
 }
 
@@ -848,6 +1057,38 @@ function viewPlaybook(p){
     w.appendChild(h); w.appendChild(b); s.appendChild(w);
   });
   p.appendChild(s);
+}
+function viewGpuaas(p){
+  p.appendChild(el('div',null,`<div class="eyebrow">Course · GPU-as-a-Service</div><h1 style="font-size:26px;margin:6px 0 4px">Selling GPUaaS</h1><p class="lede">GPU compute is the biggest line item in AI, and most buyers negotiate it alone. This course shows you how GPUaaS works, how to structure a deal, how to sell it to AI startups and neoclouds, and the red flags that sink deals. About 45 minutes. Finish with the self-check and the Coach drill.</p>`));
+  const s=el('div','stack'); s.style.marginTop='18px';
+  GPU_MODULES.forEach((L,i)=>{
+    const w=el('div','lesson');
+    const h=el('div','lesson-h',`<div class="ln">${L.n}</div><b>${esc(L.t)}</b><span class="caret">▸</span>`);
+    const b=el('div','lesson-b',L.body);
+    h.onclick=()=>w.classList.toggle('open');
+    if(i===0) w.classList.add('open');
+    w.appendChild(h); w.appendChild(b); s.appendChild(w);
+  });
+  p.appendChild(s);
+  // self-check
+  const qh=el('div',null,`<h2 style="font-size:20px;margin:28px 0 2px">Self-check</h2><p class="note" style="margin-top:2px">Six questions. Pick an answer to see why.</p>`);
+  p.appendChild(qh);
+  const score=el('p','note'); let right=0, done=0;
+  GPU_QUIZ.forEach((Q,qi)=>{
+    const c=el('div','card gq'); c.innerHTML=`<div class="qt">${qi+1}. ${esc(Q.q)}</div><div class="opts"></div><div class="why"></div>`;
+    const box=c.querySelector('.opts');
+    Q.o.forEach((o,oi)=>{ const b=el('button',null,esc(o)); b.type='button';
+      b.onclick=()=>{ box.querySelectorAll('button').forEach((x,xi)=>{ x.disabled=true; if(xi===Q.a)x.classList.add('ok'); });
+        if(oi!==Q.a) b.classList.add('no'); else right++;
+        done++; c.querySelector('.why').textContent=(oi===Q.a?'Correct. ':'Not quite. ')+Q.why;
+        if(done===GPU_QUIZ.length) score.textContent=`You scored ${right} of ${GPU_QUIZ.length}. ${right===GPU_QUIZ.length?'Ready for the Coach drill.':'Re-read the modules you missed, then try the Coach drill.'}`; };
+      box.appendChild(b); });
+    p.appendChild(c);
+  });
+  p.appendChild(score);
+  const go=el('div'); go.style.marginTop='14px';
+  const cb=el('button','btn primary','Practise in Coach: GPUaaS drill'); cb.onclick=()=>{ coachState={topic:'gpuaas',qi:0}; setActive('coach'); };
+  go.appendChild(cb); p.appendChild(go);
 }
 function viewScripts(p){
   p.appendChild(el('div',null,`<div class="eyebrow">Scripts & Templates</div><h1 style="font-size:26px;margin:6px 0 4px">Ready to use</h1><p class="lede">Copy, personalize the bracketed parts, and send. Never leave a prospect without a booked next step.</p>`));
