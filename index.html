@@ -243,6 +243,8 @@ section[role=tabpanel]{animation:fade .25s ease}
 .tl-t p{font-size:12.5px;color:var(--ink-2);margin:4px 0 0;line-height:1.4}
 .tl-badge{display:inline-block;font-size:10.5px;font-weight:700;font-family:var(--font-display);padding:1px 7px;border-radius:999px;margin-left:6px;vertical-align:1px}
 .tl-badge.ww{background:var(--accent-soft);color:var(--accent-700)}
+.tl-badge.dr{background:var(--surface-2);color:var(--navy);border:1px solid var(--line)}
+.tl-badge.tv{background:#e8f0ff;color:#1d4fa8}
 .tl-badge.vf{background:#fff4e0;color:#8a5a00}
 @media print{.appbar,#tabs,footer,#a2hs,#syncBanner,.noprint{display:none!important}body{background:#fff}.card{box-shadow:none}}
 
@@ -689,6 +691,9 @@ const ECO = [
  ]},
  {role:'Data centre & infrastructure', items:[
    ['Platinum Data Centers','Data centre and colocation'],
+   ['Telehouse Canada','Colocation in Toronto'],
+   ['DRFortress','Colocation in Hawaii'],
+   ['1547 Critical Systems Realty','Data centre development and colocation'],
    ['Opticool','Cooling solutions'],
    ['Arc Compute','MSP, installation and burn-in'],
  ]},
@@ -700,31 +705,51 @@ const ECO = [
  ]},
 ];
 
-const TELARUS = [
+const PARTNERS = [
+ {cat:'Compute & neoclouds', items:[
+   ['OneQode','Neocloud','','','direct'],
+   ['Vertical Computer','Neocloud','','','direct'],
+   ['Technology Kings','Neocloud and hardware source','','','direct'],
+ ]},
  {cat:'Data centres & colocation', items:[
-   ['Equinix','Colocation, interconnection, managed infrastructure','Global footprint, US and APAC. Has launched Equinix Managed Solutions, so it can now take on compute, storage and networking management, not just space and power.','Responsive on deal registrations and referral leads. Good fit for buyers who want to be hands off.'],
-   ['Digital Realty','Wholesale and retail colocation','Large-scale and multi-site capacity. Strong channel team.','No large contiguous blocks free right now. Open to smaller deployments, so ask what they have before you pitch a big single site.'],
-   ['TierPoint','Colocation and hybrid cloud','Mid-size blocks across many US markets.','Large blocks go fast to hyperscalers. Pockets of 200 to 400kW are common, so split sites may be the play. Expect a detailed credit review for start-ups without a credit history.'],
-   ['Flexential','Colocation, wholesale and cloud','US-wide data centre footprint with a great channel rep.','Wholesale deals require an 8-year term. Qualify term length before you register.'],
-   ['Expedient','Colocation and private cloud','Enterprise-grade colo with managed services.','Active on 500kW-class opportunities. Have rack and cabinet diagrams ready for the first call.'],
-   ['Iron Mountain Data Centers','Colocation','Secure, compliance-heavy colo.','No 1.5MW available in the US right now. Check other regions.'],
-   ['NTT Global Data Centers','Wholesale colocation','Large global campus operator.','No 1.5MW in the US right now, possible 1 to 1.3MW back in inventory mid-2027. Does not operate in Canada.'],
-   ['ValorC3 Data Centers','Regional colocation','Regional US sites.','Declined a 1.5MW request. Better for smaller footprints.'],
-   ['LightEdge','Colocation and cloud','Midwest-focused colo plus cloud.','Intro call held. Keep warm for regional colo needs.'],
-   ['Telehouse Canada','Colocation and interconnection','KDDI-owned colo in downtown Toronto, inside the 151 Front Street West carrier hotel with direct access to Canada\'s densest network hub.','New to the bench. Our go-to when a buyer needs Canadian capacity, since NTT does not operate in Canada. Confirm power and space on the first call.'],
-   ['DRFortress','Colocation and interconnection','Hawaii\'s largest carrier-neutral data centre campus in Honolulu, home to the DRF Internet Exchange and a key link between the US mainland and APAC.','New to the bench. Pitch it for Hawaii presence or trans-Pacific connectivity. Verify available power before quoting anything large.'],
-   ['1547 Critical Systems Realty','Data centre development and colocation','Develops and operates purpose-built data centres in multiple US markets, with build-to-suit and wholesale options.','New to the bench. Worth a call for larger or custom builds. Qualify site, timeline and term before you register.'],
+   ['Equinix','Colocation, interconnection, managed infrastructure','Global footprint, US and APAC. Has launched Equinix Managed Solutions, so it can now take on compute, storage and networking management, not just space and power.','Responsive on deal registrations and referral leads. Good fit for buyers who want to be hands off.','telarus'],
+   ['Digital Realty','Wholesale and retail colocation','Large-scale and multi-site capacity. Strong channel team.','No large contiguous blocks free right now. Open to smaller deployments, so ask what they have before you pitch a big single site.','telarus'],
+   ['TierPoint','Colocation and hybrid cloud','Mid-size blocks across many US markets.','Large blocks go fast to hyperscalers. Pockets of 200 to 400kW are common, so split sites may be the play. Expect a detailed credit review for start-ups without a credit history.','telarus'],
+   ['Flexential','Colocation, wholesale and cloud','US-wide data centre footprint with a great channel rep.','Wholesale deals require an 8-year term. Qualify term length before you register.','telarus'],
+   ['Expedient','Colocation and private cloud','Enterprise-grade colo with managed services.','Active on 500kW-class opportunities. Have rack and cabinet diagrams ready for the first call.','telarus'],
+   ['Iron Mountain Data Centers','Colocation','Secure, compliance-heavy colo.','No 1.5MW available in the US right now. Check other regions.','telarus'],
+   ['NTT Global Data Centers','Wholesale colocation','Large global campus operator.','No 1.5MW in the US right now, possible 1 to 1.3MW back in inventory mid-2027. Does not operate in Canada.','telarus'],
+   ['ValorC3 Data Centers','Regional colocation','Regional US sites.','Declined a 1.5MW request. Better for smaller footprints.','telarus'],
+   ['LightEdge','Colocation and cloud','Midwest-focused colo plus cloud.','Intro call held. Keep warm for regional colo needs.','telarus'],
+   ['Platinum Data Centers','Data centre and colocation','','','direct'],
+   ['Telehouse Canada','Colocation and interconnection','KDDI-owned colo in downtown Toronto, inside the 151 Front Street West carrier hotel with direct access to Canada\'s densest network hub.','New to the bench. Our go-to when a buyer needs Canadian capacity, since NTT does not operate in Canada. Confirm power and space on the first call.','direct'],
+   ['DRFortress','Colocation and interconnection','Hawaii\'s largest carrier-neutral data centre campus in Honolulu, home to the DRF Internet Exchange and a key link between the US mainland and APAC.','New to the bench. Pitch it for Hawaii presence or trans-Pacific connectivity. Verify available power before quoting anything large.','direct'],
+   ['1547 Critical Systems Realty','Data centre development and colocation','Develops and operates purpose-built data centres in multiple US markets, with build-to-suit and wholesale options.','New to the bench. Worth a call for larger or custom builds. Qualify site, timeline and term before you register.','direct'],
  ]},
  {cat:'Network & connectivity', items:[
-   ['Lumen','Fibre, wavelengths, enterprise network','National fibre and long-haul capacity. Also live in CableFinder.','Delivery dates slide week by week if the signature slips. Lock the timeline in writing.'],
-   ['Comcast Business','Fibre and business connectivity','Broad US last-mile coverage.','Can be slow to confirm. Let the Telarus pricing specialist chase it.'],
-   ['Centracom','Fibre and local connectivity','Regional fibre carrier.','Quoted fast. Fibre on site means install in 10 to 25 business days.'],
+   ['Lumen','Fibre, wavelengths, enterprise network','National fibre and long-haul capacity. Also live in CableFinder.','Delivery dates slide week by week if the signature slips. Lock the timeline in writing.','telarus'],
+   ['Comcast Business','Fibre and business connectivity','Broad US last-mile coverage.','Can be slow to confirm. Let the Telarus pricing specialist chase it.','telarus'],
+   ['Centracom','Fibre and local connectivity','Regional fibre carrier.','Quoted fast. Fibre on site means install in 10 to 25 business days.','telarus'],
  ]},
  {cat:'Cloud & edge', items:[
-   ['Akamai','Edge cloud, CDN, security','Distributed edge compute and delivery.','Declined a GPU compute deal as not a fit. Bring them edge, CDN and security needs, not bulk GPU.'],
+   ['Akamai','Edge cloud, CDN, security','Distributed edge compute and delivery.','Declined a GPU compute deal as not a fit. Bring them edge, CDN and security needs, not bulk GPU.','telarus'],
  ]},
  {cat:'Power, cooling & site equipment', items:[
-   ['Abundant IoT','Generators, CRAC units, power and energy','Sources critical site equipment and power, including electricity in deregulated US states.','Will not quote off a loose list. Send full specs and book an engineering call first, then register the deal through Telarus.'],
+   ['Abundant IoT','Generators, CRAC units, power and energy','Sources critical site equipment and power, including electricity in deregulated US states.','Will not quote off a loose list. Send full specs and book an engineering call first, then register the deal through Telarus.','telarus'],
+   ['Opticool','Cooling solutions','','','direct'],
+ ]},
+ {cat:'Hardware, sourcing & finance', items:[
+   ['Bitsb2b','Hardware vendor','','','direct'],
+   ['Avera-Tech','Hardware vendor','','','direct'],
+   ['RecellTx','Hardware vendor','','','direct'],
+   ['VFI','GPU financing','','','direct'],
+   ['TecEx','Export and global logistics','','','direct'],
+ ]},
+ {cat:'Services & lifecycle', items:[
+   ['Arc Compute','MSP, installation and burn-in','','','direct'],
+   ['Team Venti','Microsoft CSP','','','direct'],
+   ['Purtera IT','Professional services','','','direct'],
+   ['Core4','ITAD, IT asset disposition','','','direct'],
  ]},
 ];
 
@@ -957,7 +982,7 @@ function brandWalk(o){
 function applyBrand(key){
   BR=BRANDS[key]||BRANDS.ssp;
   document.documentElement.setAttribute('data-brand',BR.key);
-  [PROGRAM,LESSONS,SCRIPTS,QBANK,OBJECTIONS,DRILLS,ECO,GLOSSARY,GPU_MODULES,GPU_QUIZ,TELARUS].forEach(brandWalk);
+  [PROGRAM,LESSONS,SCRIPTS,QBANK,OBJECTIONS,DRILLS,ECO,GLOSSARY,GPU_MODULES,GPU_QUIZ,PARTNERS].forEach(brandWalk);
   const other=BR.key==='ssp'?BRANDS.cn:BRANDS.ssp;
   document.title=BR.short+' Onboarding Hub';
   const bl=$('#barLogo'); if(bl){ bl.src=BRAND_LOGO[BR.key]||''; bl.alt=BR.name; }
@@ -1048,7 +1073,7 @@ const TABS=[
  {id:'scripts',label:'Scripts'},
  {id:'coach',label:'Coach'},
  {id:'ecosystem',label:'Ecosystem'},
- {id:'telarus',label:'Telarus'},
+ {id:'partners',label:'Partner Hub'},
  {id:'glossary',label:'Glossary'},
  {id:'manager',label:'Manager',mgr:true},
 ];
@@ -1075,7 +1100,7 @@ function renderActive(){
   const m=$('#main'); if(!m) return;
   m.innerHTML='';
   const panel=el('section'); panel.setAttribute('role','tabpanel');
-  ({welcome:viewWelcome,vetting:viewVetting,day1:viewDay1,plan:viewPlan,playbook:viewPlaybook,gpuaas:viewGpuaas,scripts:viewScripts,coach:viewCoach,ecosystem:viewEcosystem,telarus:viewTelarus,glossary:viewGlossary,manager:viewManager}[active]||viewWelcome)(panel);
+  ({welcome:viewWelcome,vetting:viewVetting,day1:viewDay1,plan:viewPlan,playbook:viewPlaybook,gpuaas:viewGpuaas,scripts:viewScripts,coach:viewCoach,ecosystem:viewEcosystem,partners:viewPartners,glossary:viewGlossary,manager:viewManager}[active]||viewWelcome)(panel);
   m.appendChild(panel);
 }
 
@@ -1258,12 +1283,38 @@ function viewEcosystem(p){
   });
   p.appendChild(grid);
   p.appendChild(el('p','note',`Partners evolve. The CRM holds the current, vetted list. Never introduce a buyer to a partner you have not vetted.`));
-  const tl=el('button','btn ghost','See our Telarus supplier bench \u2192'); tl.style.marginTop='10px'; tl.onclick=()=>setActive('telarus'); p.appendChild(tl);
+  const tl=el('button','btn ghost','Open the partner hub \u2192'); tl.style.marginTop='10px'; tl.onclick=()=>setActive('partners'); p.appendChild(tl);
 }
-function viewTelarus(p){
-  const n=TELARUS.reduce((a,g)=>a+g.items.length,0);
-  p.appendChild(el('div',null,`<div class="eyebrow">One pager · Telarus</div><h1 style="font-size:26px;margin:6px 0 4px">Our Telarus supplier bench</h1><p class="lede">Telarus is a technology services distributor. Our agreement lets us register deals and pull pricing from their whole portfolio of 422 approved suppliers, with a pricing specialist doing the chasing. Start with the ${n} we have already worked with, then search the full list below.</p>`));
+let phFilter='all';
+function viewPartners(p){
+  const all=PARTNERS.flatMap(g=>g.items), nT=all.filter(c=>c[4]==='telarus').length, nD=all.length-nT;
+  p.appendChild(el('div',null,`<div class="eyebrow">One pager · Partners</div><h1 style="font-size:26px;margin:6px 0 4px">Our partner hub</h1><p class="lede">Every partner we sell through, in one place. ${nD} are direct relationships from our own ecosystem. ${nT} come through Telarus, a technology services distributor whose agreement lets us register deals and pull pricing from 422 approved suppliers. Check the tag on each card so you register the deal the right way.</p>`));
   const pb=el('button','btn ghost noprint','Print this page'); pb.style.marginTop='12px'; pb.onclick=()=>window.print(); p.appendChild(pb);
+  const bar=el('div','tl-bar noprint'); p.appendChild(bar);
+  const list=el('div'); p.appendChild(list);
+  const paint=()=>{
+    bar.innerHTML='';
+    [['all','All',all.length],['direct','Direct',nD],['telarus','Via Telarus',nT]].forEach(f=>{
+      const b=el('button','chip'+(phFilter===f[0]?' active':''),`${f[1]} <span style="opacity:.7">${f[2]}</span>`); b.type='button';
+      b.onclick=()=>{ phFilter=f[0]; paint(); }; bar.appendChild(b); });
+    list.innerHTML='';
+    PARTNERS.forEach(g=>{
+      const items=g.items.filter(c=>phFilter==='all'||c[4]===phFilter); if(!items.length) return;
+      const sec=el('div','tl-cat'); sec.appendChild(el('h3',null,esc(g.cat)));
+      const grid=el('div','grid g2');
+      items.forEach(c=>grid.appendChild(el('div','card tl-co',`<div class="top"><b>${esc(c[0])}${c[4]==='telarus'?'<span class="tl-badge tv">Via Telarus</span>':'<span class="tl-badge dr">Direct</span>'}</b><span class="what">${esc(c[1])}</span></div>${c[2]?`<p>${esc(c[2])}</p>`:''}${c[3]?`<div class="fn"><i>Field note:</i> ${esc(c[3])}</div>`:''}`)));
+      sec.appendChild(grid); list.appendChild(sec);
+    });
+  };
+  paint();
+  const dh=el('div','pos'); dh.style.marginTop='22px';
+  dh.innerHTML=`<div class="q">Working a direct partner</div><ul style="margin:8px 0 0;padding-left:18px;color:var(--ink-2)">
+    <li>Register the deal with the partner directly before you introduce the buyer. Get it in writing.</li>
+    <li>The CRM holds the contact owner and current terms for each direct partner. Check it before you reach out.</li>
+    <li>Vet first, every time. A partner we know is still a partner we vet for each deal.</li></ul>`;
+  p.appendChild(dh);
+  const th=el('div',null,`<h2 style="font-size:22px;margin:28px 0 4px">Working a Telarus deal</h2><p class="lede" style="font-size:14.5px">For any partner tagged Via Telarus, the deal goes through Telarus, with a pricing specialist doing the chasing.</p>`);
+  p.appendChild(th);
   const steps=el('div','tl-steps');
   [['Qualify','Get the real requirement: size, location, term, timeline. Vet the buyer first.'],
    ['Register','Submit the deal registration or quote request in the Telarus Hub or to Partners@Telarus.com.'],
@@ -1271,12 +1322,6 @@ function viewTelarus(p){
    ['Advocate','Keep the Telarus quote number in every email subject and push for the buyer’s best terms.']
   ].forEach((s,i)=>steps.appendChild(el('div','s',`<div class="n">STEP ${i+1}</div><b>${s[0]}</b><p>${s[1]}</p>`)));
   p.appendChild(steps);
-  TELARUS.forEach(g=>{
-    const sec=el('div','tl-cat'); sec.appendChild(el('h3',null,esc(g.cat)));
-    const grid=el('div','grid g2');
-    g.items.forEach(c=>grid.appendChild(el('div','card tl-co',`<div class="top"><b>${esc(c[0])}</b><span class="what">${esc(c[1])}</span></div><p>${esc(c[2])}</p><div class="fn"><i>Field note:</i> ${esc(c[3])}</div>`)));
-    sec.appendChild(grid); p.appendChild(sec);
-  });
   const ct=el('div','card pad'); ct.style.marginTop='22px';
   ct.innerHTML=`<h3>Who to contact at Telarus</h3><p style="color:var(--ink-2);margin-top:4px">Our partner manager is Melissa Babiak, Strategic Partner Development Manager. When she is out, use the team inboxes.</p>
     <div class="tl-contacts">
@@ -1287,7 +1332,7 @@ function viewTelarus(p){
     </div>`;
   p.appendChild(ct);
   const rules=el('div','pos'); rules.style.marginTop='16px';
-  rules.innerHTML=`<div class="q">House rules</div><ul style="margin:8px 0 0;padding-left:18px;color:var(--ink-2)">
+  rules.innerHTML=`<div class="q">Telarus house rules</div><ul style="margin:8px 0 0;padding-left:18px;color:var(--ink-2)">
     <li>Register the deal before you introduce the buyer to the supplier. We go by the book.</li>
     <li>One registration per region. If the buyer only wants the US, say so up front.</li>
     <li>Vet first. A Telarus supplier is still a supplier we vet before any intro.</li></ul>`;
@@ -1582,7 +1627,7 @@ function boot(){
   document.querySelectorAll('.gco button').forEach(x=>x.onclick=()=>{ gatePicked=true; applyBrand(x.dataset.b); });
   $('#gEmail').addEventListener('input',()=>{ const b=brandOf($('#gEmail').value); if(b && b!==BR.key) applyBrand(b); });
   // hash -> tab
-  try{ const h=(location.hash||'').replace('#',''); if(TABS.some(t=>t.id===h)) active=h; }catch(e){}
+  try{ let h=(location.hash||'').replace('#',''); if(h==='telarus') h='partners'; if(TABS.some(t=>t.id===h)) active=h; }catch(e){}
   $('#menuBtn').onclick=(e)=>{ e.stopPropagation(); toggleMenu(); };
   $('#gateForm').addEventListener('submit',submitGate);
   if(rep.name && rep.email){ $('#app').hidden=false; updateHeader(); renderTabs(); renderActive(); maybeA2HS(); }
