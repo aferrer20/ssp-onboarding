@@ -176,6 +176,28 @@ section[role=tabpanel]{animation:fade .25s ease}
 .obj td:first-child{font-weight:600;color:var(--navy-900);font-family:var(--font-display)}
 .obj tr:nth-child(even) td{background:var(--surface-2)}
 
+/* ---------- Telarus ---------- */
+.tl-steps{display:grid;gap:10px;margin:16px 0 4px}
+@media(min-width:760px){.tl-steps{grid-template-columns:repeat(4,1fr)}}
+.tl-steps .s{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px}
+.tl-steps .s .n{font-family:var(--font-display);font-weight:800;font-size:12px;color:var(--accent-700);letter-spacing:.08em}
+.tl-steps .s b{display:block;font-family:var(--font-display);color:var(--navy-900);font-size:14px;margin-top:2px}
+.tl-steps .s p{font-size:12.5px;color:var(--ink-2);margin:4px 0 0}
+.tl-cat{margin-top:22px}
+.tl-cat h3{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-700);margin-bottom:8px}
+.tl-co{padding:14px 16px}
+.tl-co .top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.tl-co b{font-family:var(--font-display);font-size:15px;color:var(--navy-900)}
+.tl-co .what{font-size:12px;color:var(--ink-3);font-family:var(--font-display);font-weight:600}
+.tl-co p{font-size:13px;color:var(--ink-2);margin:6px 0 0}
+.tl-co .fn{font-size:12.5px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);color:var(--ink-2)}
+.tl-co .fn i{font-style:normal;font-weight:700;color:var(--navy)}
+.tl-contacts{display:grid;gap:8px;margin-top:10px}
+@media(min-width:720px){.tl-contacts{grid-template-columns:1fr 1fr}}
+.tl-contacts div{font-size:13px;color:var(--ink-2)}
+.tl-contacts a{font-weight:600}
+@media print{.appbar,#tabs,footer,#a2hs,#syncBanner,.noprint{display:none!important}body{background:#fff}.card{box-shadow:none}}
+
 /* ---------- Ecosystem ---------- */
 .flow{display:grid;gap:12px}
 @media(min-width:800px){.flow{grid-template-columns:1fr auto 1fr auto 1fr;align-items:center}}
@@ -548,6 +570,31 @@ const ECO = [
  ]},
 ];
 
+const TELARUS = [
+ {cat:'Data centres & colocation', items:[
+   ['Equinix','Colocation, interconnection, managed infrastructure','Global footprint, US and APAC. Has launched Equinix Managed Solutions, so it can now take on compute, storage and networking management, not just space and power.','Responsive on deal registrations and referral leads. Good fit for buyers who want to be hands off.'],
+   ['Digital Realty','Wholesale and retail colocation','Large-scale and multi-site capacity. Strong channel team.','No large contiguous blocks free right now. Open to smaller deployments, so ask what they have before you pitch a big single site.'],
+   ['TierPoint','Colocation and hybrid cloud','Mid-size blocks across many US markets.','Large blocks go fast to hyperscalers. Pockets of 200 to 400kW are common, so split sites may be the play. Expect a detailed credit review for start-ups without a credit history.'],
+   ['Flexential','Colocation, wholesale and cloud','US-wide data centre footprint with a great channel rep.','Wholesale deals require an 8-year term. Qualify term length before you register.'],
+   ['Expedient','Colocation and private cloud','Enterprise-grade colo with managed services.','Active on 500kW-class opportunities. Have rack and cabinet diagrams ready for the first call.'],
+   ['Iron Mountain Data Centers','Colocation','Secure, compliance-heavy colo.','No 1.5MW available in the US right now. Check other regions.'],
+   ['NTT Global Data Centers','Wholesale colocation','Large global campus operator.','No 1.5MW in the US right now, possible 1 to 1.3MW back in inventory mid-2027. Does not operate in Canada.'],
+   ['ValorC3 Data Centers','Regional colocation','Regional US sites.','Declined a 1.5MW request. Better for smaller footprints.'],
+   ['LightEdge','Colocation and cloud','Midwest-focused colo plus cloud.','Intro call held. Keep warm for regional colo needs.'],
+ ]},
+ {cat:'Network & connectivity', items:[
+   ['Lumen','Fibre, wavelengths, enterprise network','National fibre and long-haul capacity. Also live in CableFinder.','Delivery dates slide week by week if the signature slips. Lock the timeline in writing.'],
+   ['Comcast Business','Fibre and business connectivity','Broad US last-mile coverage.','Can be slow to confirm. Let the Telarus pricing specialist chase it.'],
+   ['Centracom','Fibre and local connectivity','Regional fibre carrier.','Quoted fast. Fibre on site means install in 10 to 25 business days.'],
+ ]},
+ {cat:'Cloud & edge', items:[
+   ['Akamai','Edge cloud, CDN, security','Distributed edge compute and delivery.','Declined a GPU compute deal as not a fit. Bring them edge, CDN and security needs, not bulk GPU.'],
+ ]},
+ {cat:'Power, cooling & site equipment', items:[
+   ['Abundant IoT','Generators, CRAC units, power and energy','Sources critical site equipment and power, including electricity in deregulated US states.','Will not quote off a loose list. Send full specs and book an engineering call first, then register the deal through Telarus.'],
+ ]},
+];
+
 const GLOSSARY = [
  ['GPU','Graphics processing unit, the chip that powers AI training and inference. The core of most of our deals.'],
  ['NVIDIA H100 / H200','High-end data centre GPUs from NVIDIA’s Hopper generation, widely used for AI.'],
@@ -645,6 +692,7 @@ const TABS=[
  {id:'scripts',label:'Scripts'},
  {id:'coach',label:'Coach'},
  {id:'ecosystem',label:'Ecosystem'},
+ {id:'telarus',label:'Telarus'},
  {id:'glossary',label:'Glossary'},
  {id:'manager',label:'Manager',mgr:true},
 ];
@@ -671,7 +719,7 @@ function renderActive(){
   const m=$('#main'); if(!m) return;
   m.innerHTML='';
   const panel=el('section'); panel.setAttribute('role','tabpanel');
-  ({welcome:viewWelcome,vetting:viewVetting,day1:viewDay1,plan:viewPlan,playbook:viewPlaybook,scripts:viewScripts,coach:viewCoach,ecosystem:viewEcosystem,glossary:viewGlossary,manager:viewManager}[active]||viewWelcome)(panel);
+  ({welcome:viewWelcome,vetting:viewVetting,day1:viewDay1,plan:viewPlan,playbook:viewPlaybook,scripts:viewScripts,coach:viewCoach,ecosystem:viewEcosystem,telarus:viewTelarus,glossary:viewGlossary,manager:viewManager}[active]||viewWelcome)(panel);
   m.appendChild(panel);
 }
 
@@ -822,6 +870,41 @@ function viewEcosystem(p){
   });
   p.appendChild(grid);
   p.appendChild(el('p','note',`Partners evolve. The CRM holds the current, vetted list. Never introduce a buyer to a partner you have not vetted.`));
+  const tl=el('button','btn ghost','See our Telarus supplier bench \u2192'); tl.style.marginTop='10px'; tl.onclick=()=>setActive('telarus'); p.appendChild(tl);
+}
+function viewTelarus(p){
+  const n=TELARUS.reduce((a,g)=>a+g.items.length,0);
+  p.appendChild(el('div',null,`<div class="eyebrow">One pager · Telarus</div><h1 style="font-size:26px;margin:6px 0 4px">Our Telarus supplier bench</h1><p class="lede">Telarus is a technology services distributor. Our agreement lets us register deals and pull pricing from their whole supplier portfolio, with a pricing specialist doing the chasing. These are the ${n} suppliers we have already worked through Telarus.</p>`));
+  const pb=el('button','btn ghost noprint','Print this page'); pb.style.marginTop='12px'; pb.onclick=()=>window.print(); p.appendChild(pb);
+  const steps=el('div','tl-steps');
+  [['Qualify','Get the real requirement: size, location, term, timeline. Vet the buyer first.'],
+   ['Register','Submit the deal registration or quote request in the Telarus Hub or to Partners@Telarus.com.'],
+   ['Supplier reaches out','Telarus registers it with the supplier. Expect contact within 48 business hours.'],
+   ['Advocate','Keep the Telarus quote number in every email subject and push for the buyer’s best terms.']
+  ].forEach((s,i)=>steps.appendChild(el('div','s',`<div class="n">STEP ${i+1}</div><b>${s[0]}</b><p>${s[1]}</p>`)));
+  p.appendChild(steps);
+  TELARUS.forEach(g=>{
+    const sec=el('div','tl-cat'); sec.appendChild(el('h3',null,esc(g.cat)));
+    const grid=el('div','grid g2');
+    g.items.forEach(c=>grid.appendChild(el('div','card tl-co',`<div class="top"><b>${esc(c[0])}</b><span class="what">${esc(c[1])}</span></div><p>${esc(c[2])}</p><div class="fn"><i>Field note:</i> ${esc(c[3])}</div>`)));
+    sec.appendChild(grid); p.appendChild(sec);
+  });
+  const ct=el('div','card pad'); ct.style.marginTop='22px';
+  ct.innerHTML=`<h3>Who to contact at Telarus</h3><p style="color:var(--ink-2);margin-top:4px">Our partner manager is Melissa Babiak, Strategic Partner Development Manager. When she is out, use the team inboxes.</p>
+    <div class="tl-contacts">
+      <div><a href="mailto:Partners@Telarus.com">Partners@Telarus.com</a><br>Deal registration, quote requests, supplier intros, general questions</div>
+      <div><a href="mailto:Orders@Telarus.com">Orders@Telarus.com</a><br>Order submission</div>
+      <div><a href="mailto:SETeam@Telarus.com">SETeam@Telarus.com</a><br>Technical help and solution design</div>
+      <div><a href="mailto:Partnerescalations@Telarus.com">Partnerescalations@Telarus.com</a><br>Order escalations</div>
+    </div>`;
+  p.appendChild(ct);
+  const rules=el('div','pos'); rules.style.marginTop='16px';
+  rules.innerHTML=`<div class="q">House rules</div><ul style="margin:8px 0 0;padding-left:18px;color:var(--ink-2)">
+    <li>Register the deal before you introduce the buyer to the supplier. We go by the book.</li>
+    <li>One registration per region. If the buyer only wants the US, say so up front.</li>
+    <li>Vet first. A Telarus supplier is still a supplier we vet before any intro.</li></ul>`;
+  p.appendChild(rules);
+  p.appendChild(el('p','note',`Telarus carries hundreds of suppliers beyond this list. For anything not here, search the Telarus Hub or ask Partners@Telarus.com for a supplier intro.`));
 }
 function viewGlossary(p){
   p.appendChild(el('div',null,`<div class="eyebrow">Glossary</div><h1 style="font-size:26px;margin:6px 0 4px">Speak the language</h1><p class="lede">Know the language. Search to jump to any term.</p>`));
