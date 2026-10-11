@@ -145,14 +145,15 @@ section[role=tabpanel]{animation:fade .25s ease}
 .phase.open .phase-body{display:block}
 .block-h{display:flex;align-items:center;gap:10px;padding:12px 18px 5px}
 .block-h .tt{font-family:var(--font-display);font-weight:700;font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--accent-700)}
-.block-h .tm{font-size:11px;color:var(--ink-3);background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-variant-numeric:tabular-nums}
+.block-h .tm{font-size:12px;font-family:var(--font-display);font-weight:600;letter-spacing:.04em;white-space:nowrap;color:var(--ink-3);background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-variant-numeric:tabular-nums}
 .item{display:flex;gap:12px;align-items:flex-start;padding:10px 18px;border-radius:9px;margin:0 8px;cursor:pointer}
 .item:hover{background:var(--surface-2)}
 .item .cbx{flex:none;width:21px;height:21px;border:2px solid var(--steel);border-radius:6px;margin-top:1px;display:grid;place-items:center;transition:.15s;background:#fff}
 .item .cbx svg{width:12px;height:12px;opacity:0;transform:scale(.6);transition:.15s;color:#fff}
 .item.done .cbx{background:var(--good);border-color:var(--good)}
 .item.done .cbx svg{opacity:1;transform:none}
-.item .lx{min-width:0}
+.item .lx{min-width:0;overflow-wrap:anywhere}
+@media(max-width:560px){.phase-h{flex-wrap:wrap;row-gap:10px}.phase-h .pt{flex:1 1 calc(100% - 60px)}.phase-h .pmeta{margin-left:58px;flex:1 1 auto}}
 .item .lx .t{font-size:14.5px;color:var(--ink)}
 .item.done .lx .t{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--line)}
 .item .lx .go{font-size:12px;color:var(--accent-700);font-weight:600;font-family:var(--font-display);margin-top:2px;display:inline-block}
@@ -461,34 +462,35 @@ footer{font-size:12px}
 const POSITION = "We are the buyer's advocate. We don't buy or sell. We vet every option, plug you into a trusted ecosystem, and win the strongest terms on your side of the table.";
 
 const PROGRAM = [
- { id:'day1', name:'Day One', badge:'DAY 1', sub:'Your first day, hour by hour', kind:'day', blocks:[
-   { time:'9:00', title:'Get set up on Microsoft 365', items:[
+ { id:'day1', name:'Day One', badge:'DAY 1', sub:'A simple guide to find your feet', kind:'day', blocks:[
+   { time:'Step 1', title:'Get set up on Microsoft 365', items:[
      {id:'d1-email', t:'Activate your Outlook email (firstname@{DOMAIN}) and turn on multi-factor authentication'},
      {id:'d1-teams', t:'Sign in to Microsoft Teams and introduce yourself in the team channel'},
      {id:'d1-cal', t:'Open Outlook Calendar, set your working hours to {TZ}, and add your email signature'},
      {id:'d1-sp', t:'Get access to the {B} SharePoint team site and bookmark it'},
    ]},
-   { time:'10:00', title:'Get into the tools', items:[
+   { time:'Step 2', title:'Get into the tools', items:[
      {id:'d1-crm', t:'Log in to the CRM at {CRM} and have Amanda add you as a rep'},
      {id:'d1-hub', t:'Bookmark this hub. You will work through it for the next 30 days'},
-     {id:'d1-li', t:'Polish your LinkedIn profile and connect with Amanda Ferrer and the {B} team'},
+     {id:'d1-li', t:'Polish your LinkedIn profile and connect with Amanda Ferrer, Camila Valencia and the {B} team'},
    ]},
-   { time:'11:00', title:'Learn who we are', items:[
+   { time:'Step 3', title:'Learn who we are', items:[
      {id:'d1-mission', t:'Read the Welcome and learn the one-line positioning by heart', tab:'welcome'},
      {id:'d1-what', t:'Understand what {B} helps buyers acquire: GPUs and AI compute, GaaS and bare metal, colocation, networking and connectivity', tab:'playbook'},
      {id:'d1-adv', t:'Internalize the model: we are a buyer-side advocate, we do not buy or sell, and the buyer pays nothing for our help', tab:'playbook'},
      {id:'d1-vet', t:'Learn the vetting standard. We vet before we move anything. It is the basis of everything we do', tab:'vetting'},
    ]},
-   { time:'1:00', title:'Meet the team', items:[
+   { time:'Step 4', title:'Meet the team', items:[
      {id:'d1-amanda', t:'Intro call with Amanda Ferrer, {ATITLE}, on Teams'},
+     {id:'d1-camila', t:'Meet Camila Valencia, Marketing and Operations Director, and learn how marketing and operations support your deals'},
      {id:'d1-shadow', t:'Get your shadowing schedule from Amanda so you can sit in on live calls'},
    ]},
-   { time:'2:00', title:'Your first reps', items:[
+   { time:'Step 5', title:'Your first reps', items:[
      {id:'d1-l12', t:'Read Playbook lessons 1 and 2: positioning and the deal pipeline', tab:'playbook'},
      {id:'d1-say', t:'Say the positioning out loud five times until it feels natural'},
      {id:'d1-disc', t:'Review the discovery question bank in Scripts', tab:'scripts'},
    ]},
-   { time:'4:00', title:'Close out day one', items:[
+   { time:'Step 6', title:'Close out day one', items:[
      {id:'d1-explore', t:'Explore the CRM: contacts, pipeline stages, and how a deal is logged'},
      {id:'d1-track', t:'Set up your daily tracker and confirm your targets with Amanda'},
      {id:'d1-recap', t:'Message Amanda with any questions from your first day, using Ask Amanda in the menu'},
@@ -1148,7 +1150,7 @@ function toggle(id,row){
   saveProgress();
 }
 function viewDay1(p){
-  p.appendChild(el('div',null,`<div class="eyebrow">Day One</div><h1 style="font-size:26px;margin:6px 0 4px">Your first day, hour by hour</h1><p class="lede">Work each block in order. Tick as you go. Everything saves automatically.</p>`));
+  p.appendChild(el('div',null,`<div class="eyebrow">Day One</div><h1 style="font-size:26px;margin:6px 0 4px">Your first day, a simple guide</h1><p class="lede">A suggested path to get set up and find your feet. Go at your own pace and in whatever order works for you. Tick things off as you go, and everything saves automatically.</p>`));
   const d=PROGRAM[0]; d.open=true;
   const s=el('div','stack'); s.style.marginTop='18px'; s.appendChild(phaseEl(d)); p.appendChild(s);
 }
