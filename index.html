@@ -600,6 +600,7 @@ async function init(){
       if(d){
         if(d.completed && typeof d.completed==='object') rep.completed=Object.assign({},d.completed,rep.completed);
         if(!rep.name && d.name) rep.name=d.name;
+        if(d.started_at) rep.startedAt=d.started_at;
         lsSave(); updateHeader(); renderActive();
       }
       canSync=true; updateSyncLabel();
@@ -1052,7 +1053,7 @@ function submitGate(e){
   lsSave();
   $('#gate').hidden=true; $('#app').hidden=false;
   updateHeader(); renderTabs(); renderActive(); maybeA2HS();
-  saveProgress(true);
+  init();
 }
 
 /* ============ BOOT ============ */
